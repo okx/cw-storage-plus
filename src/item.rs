@@ -59,7 +59,7 @@ where
         must_deserialize(&value)
     }
 
-    pub fn load_sb(&self, store: &dyn Storage) -> StdResult<T> {
+    pub fn load_sb(&self, store: &dyn Storage) -> Vec<u8> {
         store.get_ex(self.storage_key).unwrap()
     }
 
