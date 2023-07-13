@@ -138,6 +138,11 @@ where
         Ok(deserialize_from_bytes(value.unwrap()).unwrap())
     }
 
+    pub fn load_ex(&self, store: &dyn Storage) -> StdResult<T> {
+        let value = store.get_ex(self.storage_key);
+        Ok(deserialize_from_bytes(value.unwrap()).unwrap())
+    }
+
     /// Loads the data, perform the specified action, and store the result
     /// in the database. This is shorthand for some common sequences, which may be useful.
     ///
