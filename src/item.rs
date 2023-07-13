@@ -143,6 +143,16 @@ where
         Ok(deserialize_from_bytes(value.unwrap()).unwrap())
     }
 
+    pub fn save_u64(&self, store: &mut dyn Storage, data: u64) -> StdResult<()> {
+        store.set(self.storage_key, &data.to_be_bytes());
+        Ok(())
+    }
+
+    pub fn load_u64(&self, store: &dyn Storage) -> u64 {
+        let value = store.get_ex(self.storage_key).unwrap();
+        u64::from_be_bytes(value.as_slice().try_into().unwrap())
+    }
+
     /// Loads the data, perform the specified action, and store the result
     /// in the database. This is shorthand for some common sequences, which may be useful.
     ///
