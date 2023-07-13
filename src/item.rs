@@ -149,6 +149,11 @@ where
     }
 
     pub fn load_u64(&self, store: &dyn Storage) -> u64 {
+        let value = store.get(self.storage_key).unwrap();
+        u64::from_be_bytes(value.as_slice().try_into().unwrap())
+    }
+
+    pub fn load_u64_ex(&self, store: &dyn Storage) -> u64 {
         let value = store.get_ex(self.storage_key).unwrap();
         u64::from_be_bytes(value.as_slice().try_into().unwrap())
     }
