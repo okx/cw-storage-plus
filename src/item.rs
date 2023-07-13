@@ -59,6 +59,10 @@ where
         must_deserialize(&value)
     }
 
+    pub fn load_sb(&self, store: &dyn Storage) -> StdResult<T> {
+        store.get_ex(self.storage_key).unwrap()
+    }
+
     /// may_load will parse the data stored at the key if present, returns `Ok(None)` if no data there.
     /// returns an error on issues parsing
     pub fn may_load(&self, store: &dyn Storage) -> StdResult<Option<T>> {
