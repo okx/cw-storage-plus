@@ -59,8 +59,12 @@ where
         must_deserialize(&value)
     }
 
-    pub fn load_sb(&self, store: &dyn Storage) -> Vec<u8> {
-        store.get_ex(self.storage_key).unwrap()
+    pub fn load_len(&self, store: &dyn Storage) -> u32 {
+        let value = store.get_ex(self.storage_key);
+        if value.is_none() {
+            return 0;
+        }
+        return value.unwrap().len() as u32;
     }
 
     /// may_load will parse the data stored at the key if present, returns `Ok(None)` if no data there.
