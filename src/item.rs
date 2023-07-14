@@ -59,22 +59,6 @@ where
         must_deserialize(&value)
     }
 
-    pub fn load_len(&self, store: &dyn Storage) -> u32 {
-        let value = store.get_ex(self.storage_key);
-        if value.is_none() {
-            return 0;
-        }
-        return value.unwrap().len() as u32;
-    }
-
-    pub fn load_value_string(&self, store: &dyn Storage) -> String {
-        let value = store.get_ex(self.storage_key);
-        if value.is_none() {
-            return "is empty".to_string();
-        }
-        return String::from_utf8(value.unwrap()).expect("Invalid UTF-8");
-    }
-
     /// may_load will parse the data stored at the key if present, returns `Ok(None)` if no data there.
     /// returns an error on issues parsing
     pub fn may_load(&self, store: &dyn Storage) -> StdResult<Option<T>> {
@@ -166,6 +150,11 @@ where
 
     pub fn save_u64(&self, store: &mut dyn Storage, data: u64) -> StdResult<()> {
         store.set(self.storage_key, &data.to_be_bytes());
+        Ok(())
+    }
+
+    pub fn save_u64_ex(&self, store: &mut dyn Storage, data: u64) -> StdResult<()> {
+        store.set_ex(self.storage_key, &data.to_be_bytes());
         Ok(())
     }
 
