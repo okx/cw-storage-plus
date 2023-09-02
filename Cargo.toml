@@ -23,8 +23,7 @@ macro = ["cw-storage-macro"]
 bench = false
 
 [dependencies]
-cosmwasm-std = { git = "https://github.com/okx/cosmwasm.git", rev = "v1.3.0",default-features = false  }
-#cosmwasm-std = {git = "https://github.com/okx/cosmwasm.git", version = "1.3.0", default-features = false  }
+cosmwasm-std = { git = "https://github.com/okx/cosmwasm.git", branch = "keccak256",default-features = false  }
 
 #cosmwasm-std = { path="/Users/oker/scf/gopath/src/github.com/okx/cosmwasm/packages/std", default-features = false }
 schemars = "0.8.3"
